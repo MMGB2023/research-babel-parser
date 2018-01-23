@@ -29,9 +29,7 @@ for project, people in projects.items():
 combined_language_pairs = defaultdict(lambda: 0)
 for _, language_pairs in project_language_pairs.items():
     for pair, count in language_pairs.items():
-        combined_language_pairs[pair] += 1
-
-print('language pairs', len(combined_language_pairs))
+        combined_language_pairs[pair] += count
 
 # sort by both count and pair
 sorted_language_pairs = sorted(
@@ -39,8 +37,6 @@ sorted_language_pairs = sorted(
     key=lambda x: x[1],
     reverse=True
 )
-print('sorted language pairs', len(sorted_language_pairs))
-
 
 # save to tsv as "en-uz	5"
 with open('allwiki-babel-out-pairs.tsv', 'w') as outfile:
