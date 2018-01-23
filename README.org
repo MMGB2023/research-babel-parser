@@ -1,0 +1,9 @@
+* Babel data parser
+  How many pairs of languages do [[https://www.mediawiki.org/wiki/Extension:Babel][Babel]] users speak?
+
+** How does it work?
+  - The [[file:dblists][list of wikis]] is taken from [[https://github.com/wikimedia/operations-mediawiki-config/blob/master/dblists/wikipedia.dblist][operations-mediawiki-config]].
+  - [[file:sql-generator.py][Sql generator]] creates a [[file:allwiki-babel.sql][query file]] that is used for retrieving [[file:allwiki-babel-out.tsv][babel
+    data]] from the database.
+  - [[file:babel-parser.py][Babel parser]] is used to generate the [[file:allwiki-babel-out-pairs.tsv][language pairs]] from the [[file:allwiki-babel-out.tsv][babel
+    data]].
