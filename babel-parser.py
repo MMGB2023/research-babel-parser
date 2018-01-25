@@ -24,8 +24,11 @@ with open('allwiki-babel-out.tsv', 'r') as infile:
             }
 
 language_pairs = defaultdict(lambda: 0)  # {'en-uz': 5}
+language_sizes = defaultdict(lambda: 0)  # {'en': 4000}
 for person, languages in people.items():
     fluent_in = languages.keys()
+    for language in fluent_in:
+        language_sizes[language] += 1
     for pair in combinations(fluent_in, 2):
         language_pairs[frozenset(pair)] += 1
 
@@ -42,3 +45,16 @@ with open('allwiki-babel-out-pairs.tsv', 'w') as outfile:
     writer.writerow(['language pair', '# of users'])
     for pair, count in sorted_language_pairs:
         writer.writerow(("-".join(pair), count))
+
+# sort by size
+sorted_language_sizes = sorted(
+    language_sizes.items(),
+    key=lambda x: x[1],
+    reverse=True
+)
+
+with open('allwiki-babel-out-sizes.tsv', 'w') as outfile:
+    writer = csv.writer(outfile, delimiter='\t')
+    writer.writerow(['language', '# of users'])
+    for language, count in sorted_language_sizes:
+        writer.writerow((language, count))
